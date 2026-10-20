@@ -1,0 +1,23 @@
+/Unit 2 Project - Simulation Study*.pdf
+
+# Python environments and caches
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Local settings and operating system files
+.env
+.env.*
+!.env.example
+.DS_Store
+Thumbs.db
+
+# Regenerable simulation data; keep summary tables and figures trackable.
+/data/simulated/
+/results/raw/
