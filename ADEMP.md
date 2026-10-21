@@ -24,6 +24,7 @@ The design matrix below is crossed with our grid $\theta\in\{0.4,0.5,\ldots,2.4\
 | Fractional power | $\lceil0.4p^{0.75}\rceil$ | 16 | 26 | 44 |
 
 Run 200 replicates for each of the 189 conditions.
+Use seed 607, with independent random streams keyed by regime, dimension, rescaled sample size, and replicate index.
 
 ## Estimands and targets
 

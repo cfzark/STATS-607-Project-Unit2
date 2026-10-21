@@ -51,16 +51,14 @@ class SimulationTests(unittest.TestCase):
         self.assertGreater(binomial_summary(0, 200)["ci_high"], 0)
         self.assertLess(binomial_summary(200, 200)["ci_low"], 1)
 
-    def test_reproducible_across_profiles(self):
-        full = load_config("config.json", "full")
-        smoke = load_config("config.json", "smoke")
+    def test_reproducible_with_fixed_seed(self):
+        config = load_config("config.json")
         with threadpool_limits(limits=1):
-            first = trial(full, "fractional", 128, 1.2, 0)
-            self.assertEqual(first, trial(full, "fractional", 128, 1.2, 0))
-            self.assertEqual(first, trial(smoke, "fractional", 128, 1.2, 0))
+            first = trial(config, "fractional", 128, 1.2, 0)
+            self.assertEqual(first, trial(config, "fractional", 128, 1.2, 0))
 
     def test_raw_results_can_be_reanalyzed(self):
-        config = load_config("config.json", "smoke")
+        config = load_config("config.json")
         config.update(regimes=["fractional"], dimensions=[128], theta=[0.4, 2.4], replicates=3)
         with tempfile.TemporaryDirectory() as directory:
             output = Path(directory)

@@ -1,10 +1,9 @@
 PYTHON ?= python
-PROFILE ?= full
-OUTPUT ?= results/$(PROFILE)
+OUTPUT ?= results
 RUN = $(PYTHON) -m src.simulation
-ARGS = --profile $(PROFILE) --output "$(OUTPUT)"
+ARGS = --output "$(OUTPUT)"
 
-.PHONY: all simulate analyze figures clean test smoke
+.PHONY: all simulate analyze figures clean test
 
 all:
 	$(RUN) all $(ARGS)
@@ -23,6 +22,3 @@ clean:
 
 test:
 	$(PYTHON) -m unittest discover -s tests -v
-
-smoke:
-	$(RUN) all --profile smoke --output results/smoke

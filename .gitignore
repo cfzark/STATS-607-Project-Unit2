@@ -22,4 +22,4 @@ Thumbs.db
 /data/simulated/*
 !/data/simulated/.gitkeep
 /results/**/raw/
-/list.txt
+/tmp/

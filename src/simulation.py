@@ -19,17 +19,14 @@ from .metrics import recovery
 REGIME_IDS = {"linear": 0, "sublinear": 1, "fractional": 2}
 
 
-def load_config(path, profile):
-    config = json.loads(Path(path).read_text(encoding="utf-8"))
-    selected = config.pop("profiles")[profile]
-    return dict(config, **selected, profile=profile)
+def load_config(path):
+    return json.loads(Path(path).read_text(encoding="utf-8"))
 
 
 def trial(config, regime, p, theta, replicate):
     k = sparsity(p, regime, config["sparsity_fraction"], config["sparsity_power"])
     scale = 2 * k * math.log(p - k)
     n = math.ceil(theta * scale)
-    # Keys use parameter values, so overlapping smoke/full trials are identical.
     key = (REGIME_IDS[regime], p, round(theta * 1_000_000), replicate)
     rng = np.random.default_rng(np.random.SeedSequence(config["seed"], spawn_key=key))
     x, y, beta = generate(n, p, k, rng, config["sigma"], config["beta_min"])
@@ -72,7 +69,6 @@ def simulate(config, output):
 
 
 def clean(output):
-    # Delete only known generated files; never remove a user-selected directory.
     names = ("raw/replicates.csv", "summary.csv", "run.json", "figures/figure1_rescaling.png",
              "figures/figure2_recovery.png", "figures/diagnostic_convergence.png")
     for name in names:
@@ -82,16 +78,15 @@ def clean(output):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("command", choices=("all", "simulate", "analyze", "figures", "clean"))
-    parser.add_argument("--profile", choices=("full", "smoke"), default="full")
     parser.add_argument("--config", type=Path, default=Path("config.json"))
-    parser.add_argument("--output", type=Path)
+    parser.add_argument("--output", type=Path, default=Path("results"))
     args = parser.parse_args()
-    output = args.output or Path("results") / args.profile
+    output = args.output
     if args.command == "clean":
         clean(output)
         return
     if args.command in ("all", "simulate"):
-        simulate(load_config(args.config, args.profile), output)
+        simulate(load_config(args.config), output)
     if args.command in ("all", "analyze"):
         from .analysis import summarize
         summarize(output)
