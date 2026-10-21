@@ -21,3 +21,4 @@ Thumbs.db
 # Regenerable simulation data; keep summary tables and figures trackable.
 /data/simulated/
 /results/raw/
+/list.txt
