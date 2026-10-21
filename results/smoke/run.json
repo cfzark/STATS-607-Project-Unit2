@@ -1,0 +1,45 @@
+{
+  "config": {
+    "seed": 607,
+    "sigma": 0.5,
+    "beta_min": 0.5,
+    "sparsity_fraction": 0.4,
+    "sparsity_power": 0.75,
+    "regimes": [
+      "linear",
+      "sublinear",
+      "fractional"
+    ],
+    "solver_tol": 1e-08,
+    "zero_tol": 1e-08,
+    "max_iter": 10000,
+    "dimensions": [
+      128,
+      256
+    ],
+    "theta": [
+      0.4,
+      0.6,
+      0.8,
+      1.0,
+      1.2,
+      1.4,
+      1.6,
+      1.8,
+      2.0,
+      2.2,
+      2.4
+    ],
+    "replicates": 30,
+    "profile": "smoke"
+  },
+  "fits": 1980,
+  "simulation_seconds": 9.094052100001136,
+  "python": "3.11.7",
+  "packages": {
+    "numpy": "2.2.6",
+    "scikit-learn": "1.6.0",
+    "matplotlib": "3.8.4",
+    "threadpoolctl": "3.5.0"
+  }
+}

@@ -23,7 +23,7 @@ The design matrix below is crossed with our grid $\theta\in\{0.4,0.5,\ldots,2.4\
 | Sublinear | $\lceil0.4p/\log(0.4p)\rceil$ | 14 | 23 | 39 |
 | Fractional power | $\lceil0.4p^{0.75}\rceil$ | 16 | 26 | 44 |
 
-Run 200 replicates for each of the 189 conditions: 37,800 fits in total. Use master seed 607 with a separate random stream for each condition and replicate.
+Run 200 replicates for each of the 189 conditions.
 
 ## Estimands and targets
 
@@ -50,8 +50,4 @@ Use scikit-learn's `Lasso` with `alpha=lambda_n`, `fit_intercept=False`, `tol=1e
 - **Primary:** proportion of replicates with exact signed support recovery, with 95% Wilson intervals and Monte Carlo standard error $\sqrt{\widehat q(1-\widehat q)/200}$.
 - **Secondary:** average numbers of false positives and false negatives, plus the proportion of fits with convergence warnings.
 
-For Figure 1, plot fractional-power recovery probabilities against both $n$ and the realized scale $n/[2k\log(p-k)]$, reusing the same results. For Figure 2, plot recovery against this scale in three panels, one per sparsity regime, with a curve for each dimension and a reference line at 1. Summarize convergence warnings in a diagnostic plot.
 
-## Reference
-
-Wainwright, M. J. (2009). Sharp thresholds for high-dimensional and noisy sparsity recovery using $\ell_1$-constrained quadratic programming (Lasso). *IEEE Transactions on Information Theory*, 55(5), 2183-2202. [DOI](https://doi.org/10.1109/TIT.2009.2016018). [Author manuscript, Section VII](https://statistics.berkeley.edu/sites/default/files/tech-reports/709.pdf).
