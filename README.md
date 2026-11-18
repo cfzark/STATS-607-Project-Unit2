@@ -2,27 +2,29 @@
 
 A simulation study of exact signed support recovery using Lasso, following Figures 1 and 2 of Wainwright (2009). [ADEMP.md](ADEMP.md) describes the design; [ANALYSIS.md](ANALYSIS.md) discusses the results.
 
-## Setup
+## Reproduce from a fresh clone
 
-Use Python 3.11 or later. From the repository root:
+Install Python 3.11 with `venv` support and GNU Make. Run this command from the repository root.
 
 ```sh
-python -m venv .venv
-# Activate: .venv\Scripts\Activate.ps1 (PowerShell)
-#           source .venv/bin/activate (macOS/Linux)
-python -m pip install -r requirements.txt
+make reproduce
 ```
 
-## Run
+The command creates or reuses `.venv`, installs the versions listed in `requirements.txt`, and uses that environment directly. It runs the full serial simulation, generates the summary and figures, then runs the tests and checks the saved trials for completeness, finite values, and convergence. The first run requires internet access to install dependencies. Allow about seven minutes for the simulation, plus setup and checks.
+
+## Run individual stages
+
+These targets use the Python on your PATH. To use the project environment directly, pass `PYTHON=.venv/Scripts/python.exe` on Windows or `PYTHON=.venv/bin/python` on macOS or Linux.
 
 ```sh
 make test
 make all       # 189 conditions, 200 replicates each
+make stability-check
 ```
 
 Run individual stages with `make simulate`, `make analyze`, and `make figures`. Analysis reads the saved raw results, and plotting reads the summary table. `make clean` removes the generated results.
 
-Without Make:
+If the dependencies are already installed, these commands work without Make.
 
 ```sh
 python -m unittest discover -s tests -v
